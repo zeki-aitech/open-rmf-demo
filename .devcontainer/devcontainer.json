@@ -1,5 +1,12 @@
 {
-    "image": "ghcr.io/open-rmf/rmf/rmf_demos",
+    // "image": "open-rmf-demo",
+    "build": {
+        "dockerfile": "../docker/Dockerfile",
+        "context": "..",
+        "options": [
+            "-t", "open-rmf-demo:latest" // Correctly formatted tag
+        ]
+    },
     "name": "open-rmf-demo",
     "runArgs": [
         "-it",
@@ -19,5 +26,5 @@
             ]
         }
     },
-    "postCreateCommand": "apt-get update && apt-get install -y python3-pip python3-colcon-common-extensions libgl1-mesa-glx && echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
+    "postCreateCommand": "apt-get update"
 }
