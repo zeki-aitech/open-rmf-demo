@@ -1,0 +1,23 @@
+{
+    "image": "ghcr.io/open-rmf/rmf/rmf_demos",
+    "name": "open-rmf-demo",
+    "runArgs": [
+        "-it",
+        "--net", "host", // Ensures multicast networking works
+        "--gpus", "all", // Enables GPU access
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix", // X11 forwarding for GUI
+        "-e", "DISPLAY=${env:DISPLAY}", // Passes host DISPLAY to container
+        "-e", "QT_X11_NO_MITSHM=1", // Fixes shared memory issues with X11
+        "-e", "XDG_RUNTIME_DIR=/tmp/runtime-root" // Sets XDG_RUNTIME_DIR to avoid warnings
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.python",
+                "ms-iot.vscode-ros", // ROS extension for better support
+                "ms-vscode.cpptools" // C++ extension for ROS development
+            ]
+        }
+    },
+    "postCreateCommand": "apt-get update && apt-get install -y python3-pip python3-colcon-common-extensions libgl1-mesa-glx && echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
+}
